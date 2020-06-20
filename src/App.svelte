@@ -2,6 +2,7 @@
 	import EmojiDisplay from './EmojiDisplay.svelte';
 	import EmojiDescription from './EmojiDescription.svelte';
 
+	let isLoaded = false;
 	let currentEmoji = '😃';
 	const emojis = ['🤣', '🐵', '🙇‍♂️', '🚀'];
 
@@ -12,6 +13,10 @@
 	function handleRandomButton() {
 		currentEmoji = randomizeEmoji();
 	}
+
+	setTimeout(function() {
+		isLoaded = true;
+	}, 2500);
 </script>
 
 <style>
@@ -34,7 +39,16 @@
 
 <div>
 	<h1>Randomize Emoji</h1>
+	<ul>
+		{#each emojis as emoji}
+		<li>{emoji}</li>
+		{/each}
+	</ul>
+	{#if isLoaded === true}
 	<EmojiDisplay {currentEmoji} />
 	<EmojiDescription />
 	<button on:click={handleRandomButton}>🔁 Randomize</button>
+	{:else}
+	<h2>Loading...</h2>
+	{/if}
 </div>
