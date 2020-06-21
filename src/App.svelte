@@ -1,10 +1,12 @@
 <script>
 	import EmojiDisplay from './EmojiDisplay.svelte';
 	import EmojiDescription from './EmojiDescription.svelte';
+	import Button from './Button.svelte';
 
 	let isLoaded = false;
 	let currentEmoji = '😃';
 	const emojis = ['🤣', '🐵', '🙇‍♂️', '🚀'];
+	let m = { x: 0, y: 0 };
 
 	function randomizeEmoji() {
 		return emojis[Math.floor(Math.random() * emojis.length)];
@@ -17,6 +19,11 @@
 	setTimeout(function() {
 		isLoaded = true;
 	}, 2500);
+
+	function handleMousemove(event) {
+		m.x = event.clientX;
+		m.y = event.clientY;
+	}
 </script>
 
 <style>	
@@ -28,7 +35,8 @@
 <svelte:head>
 	<link href="/terminal.min.css" rel="stylesheet" />
 </svelte:head>
-<div class="container">
+<div class="container" on:mousemove={handleMousemove}>
+	<p>The mouse position: {m.x} x {m.y}</p>
 	<h1>Randomize Emoji</h1>
 	<ul>
 		{#each emojis as emoji}
@@ -36,12 +44,10 @@
 		{/each}
 	</ul>
 	{#if isLoaded === true}
-	<EmojiDisplay {currentEmoji} />
-	<EmojiDescription />
-	<button class="btn btn-primary" on:click={handleRandomButton}>
-	🔁 Randomize
-	</button>
+		<EmojiDisplay {currentEmoji} />
+		<EmojiDescription />
+		<Button on:click|once={handleRandomButton} title={'🔁 Randomize'} />
 	{:else}
-	<h2>Loading...</h2>
+		<h2>Loading...</h2>
 	{/if}
 </div>

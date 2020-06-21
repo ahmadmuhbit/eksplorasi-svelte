@@ -6,8 +6,12 @@
     $: if(description.length>10) {
         console.log('----');
         console.log(`Description: ${description}`);
-        }
+    }
     
+    function handleSubmit(event) {
+        console.log('form submitted. Thanks!');
+        description = '';
+    }
 </script>
 
 <style>
@@ -19,7 +23,10 @@
 
 <div class="form-group">
     <p>{description}</p>
-    <textarea bind:value={description} rows="7" />
+    <form on:submit|preventDefault={handleSubmit}>
+        <textarea bind:value={description} rows="7" />
+        <button type="submit">Save</button>
+    </form>
     <p>Characters count: {characters}</p>
     <p>Words count: {words}</p>
 </div>
