@@ -17,7 +17,7 @@
     }
 </style>
 
-<div>
+<div class="form-group">
     <p>{description}</p>
     <textarea bind:value={description} rows="7" />
     <p>Characters count: {characters}</p>
