@@ -46,8 +46,10 @@
 	{#if isLoaded === true}
 		<EmojiDisplay {currentEmoji} />
 		<EmojiDescription />
-		<Button on:click|once={handleRandomButton} title={'🔁 Randomize'} />
+		<Button on:click={handleRandomButton} title={'🔁 Randomize'} />
 	{:else}
 		<h2>Loading...</h2>
 	{/if}
+
+	<Button title={'Toggle'} on:click={() => (isLoaded = !isLoaded)} />
 </div>
